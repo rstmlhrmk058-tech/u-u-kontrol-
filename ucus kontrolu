@@ -1,0 +1,62 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Fonksiyon tanimi
+string ucusGuvenligiKontrol(int yuk, int hiz, int yukseklik) {
+	int pil = 100; // Baslangic pil seviyesi
+	pil -= (hiz / 10) * 5; // Hiz degerine gore pil azalmasi
+
+	// Pil seviyesini yazdir
+	cout << "Hesaplanan pil seviyesi: " << pil << endl;
+
+	// 1. Yuk kontrolu
+	if (yuk > 500) {
+		return "Agir yuk, ucamaz!";
+	}
+	// 2. Pil seviyesi kontrolu
+	else if (pil < 30) {
+		return "Pil seviyesi dusuk, ucus guvensiz!";
+	}
+	// 3. Yukseklik kontrolu
+	else if (yukseklik > 200) {
+		return "Radar disi, ucus guvensiz!";
+	}
+	else if (yukseklik < 20) {
+		return "Yukseklik guvensiz, ucus guvensiz!";
+	}
+	// Tum kosullar uygunsa
+	else {
+		return "Ucus guvenli!";
+	}
+}
+
+int main() {
+	const int droneSayisi = 3;
+	int yukler[droneSayisi];
+	int hizlar[droneSayisi];
+	int yukseklikler[droneSayisi];
+
+	cout << "=== Mini Drone Surusu Ucus Guvenligi Programi ===" << endl;
+
+	// Kullanici verileri diziye giriyor
+	for (int i = 0; i < droneSayisi; i++) {
+		cout << "\nDrone " << i + 1 << " bilgilerini giriniz:" << endl;
+		cout << "Yuk (gram): ";
+		cin >> yukler[i];
+		cout << "Hiz (m/s): ";
+		cin >> hizlar[i];
+		cout << "Yukseklik (m): ";
+		cin >> yukseklikler[i];
+	}
+
+	cout << "\n--- Drone Surusu Ucus Durumlari ---" << endl;
+
+	// Her drone icin sonucu hesapla ve yazdir
+	for (int i = 0; i < droneSayisi; i++) {
+		string sonuc = ucusGuvenligiKontrol(yukler[i], hizlar[i], yukseklikler[i]);
+		cout << "Drone " << i + 1 << ": " << sonuc << endl;
+	}
+
+	return 0;
+}
